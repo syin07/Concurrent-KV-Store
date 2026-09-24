@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/Users/sandy/projects/concurrent-kv-store/build/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
