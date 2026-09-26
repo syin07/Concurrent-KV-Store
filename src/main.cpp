@@ -1,6 +1,8 @@
-#include<iostream>
+#include "kvstore/version.h"
+
+#include <iostream>
 
 int main() {
-    std::cout << "Hello" << "\n";
+    std::cout << "kvserver " << kvstore::version() << "\n";
     return 0;
 }

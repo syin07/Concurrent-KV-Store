@@ -1,0 +1,54 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build/${presetName}"
+    },
+    {
+      "name": "debug",
+      "displayName": "Debug",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "release",
+      "displayName": "Release (use for all benchmarks)",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "tsan",
+      "displayName": "ThreadSanitizer",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CXX_FLAGS": "-fsanitize=thread -fno-omit-frame-pointer",
+        "CMAKE_EXE_LINKER_FLAGS": "-fsanitize=thread"
+      }
+    },
+    {
+      "name": "asan",
+      "displayName": "AddressSanitizer + UndefinedBehaviorSanitizer",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=undefined",
+        "CMAKE_EXE_LINKER_FLAGS": "-fsanitize=address,undefined"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "debug",   "configurePreset": "debug" },
+    { "name": "release", "configurePreset": "release" },
+    { "name": "tsan",    "configurePreset": "tsan" },
+    { "name": "asan",    "configurePreset": "asan" }
+  ],
+  "testPresets": [
+    { "name": "debug",   "configurePreset": "debug",   "output": { "outputOnFailure": true } },
+    { "name": "release", "configurePreset": "release", "output": { "outputOnFailure": true } },
+    { "name": "tsan",    "configurePreset": "tsan",    "output": { "outputOnFailure": true } },
+    { "name": "asan",    "configurePreset": "asan",    "output": { "outputOnFailure": true } }
+  ]
+}
